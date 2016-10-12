@@ -1,6 +1,6 @@
 ;(function(document, window) {
 
-  window.ReactLaravelUJS = {
+  window.ReactLumenUJS = {
     CLASS_NAME_ATTR: 'data-react-class',
     PROPS_ATTR: 'data-react-props',
 
@@ -14,11 +14,11 @@
         }
       };
 
-      return finder('[' + ReactLaravelUJS.CLASS_NAME_ATTR + ']');
+      return finder('[' + ReactLumenUJS.CLASS_NAME_ATTR + ']');
     },
 
     mountComponents: function mountComponents() {
-      var elements = ReactLaravelUJS.getElements();
+      var elements = ReactLumenUJS.getElements();
       var element;
       var reactClass;
       var props;
@@ -29,15 +29,15 @@
 
       for(var i = 0; i < elements.length; i++) {
         element = elements[i];
-        reactClass = element.getAttribute(ReactLaravelUJS.CLASS_NAME_ATTR).split('.').reduce(index, window);
-        props = JSON.parse(element.getAttribute(ReactLaravelUJS.PROPS_ATTR));
+        reactClass = element.getAttribute(ReactLumenUJS.CLASS_NAME_ATTR).split('.').reduce(index, window);
+        props = JSON.parse(element.getAttribute(ReactLumenUJS.PROPS_ATTR));
 
         ReactDOM.render(React.createElement(reactClass, props), element);
       }
     },
 
     unmountComponents: function unmountComponents() {
-      var elements = ReactLaravelUJS.getElements();
+      var elements = ReactLumenUJS.getElements();
 
       for(var i = 0; i < elements.length; i++) {
         ReactDOM.unmountComponentAtNode(elements[i]);
@@ -46,15 +46,15 @@
 
     handleEvents: function handleEvents() {
       if (document.readyState == "complete" || document.readyState == "loaded" || document.readyState == "interactive") {
-        ReactLaravelUJS.mountComponents();
+        ReactLumenUJS.mountComponents();
       }
       else {
-        document.addEventListener('DOMContentLoaded', ReactLaravelUJS.mountComponents);
+        document.addEventListener('DOMContentLoaded', ReactLumenUJS.mountComponents);
       }
-      window.addEventListener('unload', ReactLaravelUJS.unmountComponents);
+      window.addEventListener('unload', ReactLumenUJS.unmountComponents);
     }
   };
 
-  ReactLaravelUJS.handleEvents();
+  ReactLumenUJS.handleEvents();
 
 })(document, window);

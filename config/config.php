@@ -1,8 +1,8 @@
 <?php
 
 return [
-  'source'     => public_path('vendor/react-laravel/react.js'),
-  'dom-source' => public_path('vendor/react-laravel/react-dom.js'),
-  'dom-server-source' => public_path('vendor/react-laravel/react-dom-server.js'),
-  'components' => public_path('js/components.js')
+  'source'     => app()->basePath('node_modules/react/react.js'),
+  'dom-source' => app()->basePath('node_modules/react-dom/index.js'),
+  'dom-server-source' => app()->basePath('node_modules/react-dom/server.js'),
+  'components' => app()->basePath('public/js/components.js')
 ];

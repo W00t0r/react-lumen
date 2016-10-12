@@ -1,6 +1,5 @@
 <?php namespace React;
 
-use Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -10,35 +9,32 @@ class ReactServiceProvider extends ServiceProvider {
 
   public function boot() {
 
-    Blade::extend(function($view) {
+    $blade = $this->app->make('view')->getEngineResolver()->resolve('blade')->getCompiler();
+    $blade->extend(function($view) {
       $pattern = $this->createMatcher('react_component');
 
-      return preg_replace($pattern, '<?php echo React::render$2; ?>', $view);
+      return preg_replace($pattern, '<?php echo app(\'React\')->render$2; ?>', $view);
     });
 
     $prev = __DIR__ . '/../';
 
     $this->publishes([
-      $prev . 'assets'            => public_path('vendor/react-laravel'),
-      $prev . 'node_modules/react/dist' => public_path('vendor/react-laravel'),
-      $prev . 'node_modules/react-dom/dist' => public_path('vendor/react-laravel'),
-    ], 'assets');
-
-    $this->publishes([
-      $prev . 'config/config.php' => config_path('react.php'),
+      $prev . 'config/config.php' => $this->app->basePath('config/react.php'),
     ], 'config');
   }
 
   public function register() {
 
+    $cache = $this->app->make('cache');
+
     $this->app->bind('React', function() {
 
-      if(App::environment('production')
-        && Cache::has('reactSource')
-        && Cache::has('componentsSource')) {
+      if($this->app->environment('production')
+        && $cache->has('reactSource')
+        && $cache->has('componentsSource')) {
 
-        $reactSource = Cache::get('reactSource');
-        $componentsSource = Cache::get('componentsSource');
+        $reactSource = $cache->get('reactSource');
+        $componentsSource = $cache->get('componentsSource');
 
       }
       else {
@@ -53,9 +49,9 @@ class ReactServiceProvider extends ServiceProvider {
         $reactSource .= $reactDomSource;
         $reactSource .= $reactDomServerSource;
 
-        if(App::environment('production')) {
-          Cache::forever('reactSource', $reactSource);
-          Cache::forever('componentsSource', $componentsSource);
+        if($this->app->environment('production')) {
+          $cache->forever('reactSource', $reactSource);
+          $cache->forever('componentsSource', $componentsSource);
         }
       }
 
@@ -64,6 +60,6 @@ class ReactServiceProvider extends ServiceProvider {
   }
 
   protected function createMatcher($function) {
-    return '/(?<!\w)(\s*)@' . $function . '(\s*\([\s\S]*?\))/';
+    return '/(?<!\w)(\s*)@' . $function . '(\s*\(.*\))/';
   }
 }
