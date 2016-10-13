@@ -1,14 +1,14 @@
-[![Code Climate](https://codeclimate.com/github/talyssonoc/react-laravel/badges/gpa.svg)](https://codeclimate.com/github/talyssonoc/react-laravel) [![Build Status](https://travis-ci.org/talyssonoc/react-laravel.svg?branch=master)](https://travis-ci.org/talyssonoc/react-laravel)
+[![Code Climate](https://codeclimate.com/github/ktquez/react-lumen/badges/gpa.svg)](https://codeclimate.com/github/ktquez/react-lumen) [![Build Status](https://travis-ci.org/ktquez/react-lumen.svg?branch=master)](https://travis-ci.org/ktquez/react-lumen)
 
-# react-laravel
+# react-Lumen
 
-With `react-laravel` you'll be able to use [ReactJS](https://facebook.github.io/react/) components right from your Blade views, with optional server-side rendering, and use them on the client-side with React due to unobtrusive JavaScript.
+With `react-lumen` you'll be able to use [ReactJS](https://facebook.github.io/react/) components right from your Blade views, with optional server-side rendering, and use them on the client-side with React due to unobtrusive JavaScript.
 
 # Installation
 
 ## V8js dependency
 
-It's important to know that `react-laravel` has an indirect dependency of the [v8js](https://pecl.php.net/package/v8js) PHP extension.
+It's important to know that `react-lumen` has an indirect dependency of the [v8js](https://pecl.php.net/package/v8js) PHP extension.
 
 You can see how to install it here: [how to install v8js](install_v8js.md).
 
@@ -23,7 +23,7 @@ Set the `minimum-stability` of your `composer.json` to `dev`, adding this:
 Then run:
 
 ```sh
-  $ composer require talyssonoc/react-laravel:0.11
+  $ composer require ktquez/react-lumen
 ```
 
 After that you should add this to your providers at the `config/app.php` file of your Laravel app:
@@ -39,6 +39,11 @@ And then run:
 ```
 
 And the `react.php` file will be available at the `config` folder of your app.
+
+## Install react from npm
+```sh
+npm install --save react react-dom
+```
 
 # Usage
 
@@ -58,8 +63,8 @@ The `@react_component` directive accepts 3 arguments:
 
 * `componentName`: Is the name of the global variable that holds your component.  When using [Namespaced Components](https://facebook.github.io/react/docs/jsx-in-depth.html#namespaced-components) you may use dot-notation for the component name.
 * `props`: Associative of the `props` that'll be passed to your component
-* `options`: Associative array of options that you can pass to the `react-laravel`:
-  * `prerender`: Tells react-laravel to render your component server-side, and then just _mount_ it on the client-side. Default to __true__.
+* `options`: Associative array of options that you can pass to the `react-lumen`:
+  * `prerender`: Tells react-lumen to render your component server-side, and then just _mount_ it on the client-side. Default to __true__.
   * `tag`: The tag of the element that'll hold your component. Default to __'div'__.
   * _html attributes_: Any other valid HTML attribute that will be added to the wrapper element of your component. Example: `'id' => 'my_component'`.
 
@@ -67,26 +72,25 @@ All your components should be inside `public/js/components.js` (you can configur
 
 You must include `react.js`, `react-dom.js` and `react_ujs.js` (in this order) in your view. You can concatenate these files together using laravel-elixir.
 
-`react-laravel` provides a ReactJS installation and the `react_us.js` file, they'll be at `public/vendor/react-laravel` folder after you install `react-laravel` and run:
+`react-lumen` provides a ReactJS installation and the `react_us.js` file, they'll be at `public/vendor/react-lumen` folder after you install `react-lumen` and run:
 
 ```sh
   $ php artisan vendor:publish --force
 ```
 
-For using the files provided by `react-laravel` and your `components.js` file, add this to your view:
+For using the files provided by `react-lumen` and your `components.js` file, add this to your view:
 
 ```html
-  <script src="{{ asset('vendor/react-laravel/react.js') }}"></script>
-  <script src="{{ asset('vendor/react-laravel/react-dom.js') }}"></script>
-  <script src="{{ asset('js/components.js') }}"></script>
-  <script src="{{ asset('vendor/react-laravel/react_ujs.js') }}"></script>
+  <script src="{{ base_path('public/js/app.js') }}"></script> <!-- Use webpack for generate (including react and react-dom) -->
+  <script src="{{ base_path('public/js/components.js') }}"></script>
+  <script src="{{ base_path('public/vendor/react-lumen/react_ujs.js') }}"></script>
 ```
 
-If you'll use a different version from the one provided by react-laravel (see `composer.json`), you got to configure it (see below).
+If you'll use a different version from the one provided by react-lumen (see `composer.json`), you got to configure it (see below).
 
 # Configurations
 
-You can change settings to `react-laravel` at the `config/react.php` file:
+You can change settings to `react-lumen` at the `config/react.php` file:
 
 ```php
   return [
@@ -97,15 +101,8 @@ You can change settings to `react-laravel` at the `config/react.php` file:
   ];
 ```
 
-All of them are optional.
-
-* `source`: defaults to `public/vendor/react-laravel/react.js`.
-* `dom-source`: defaults to `public/vendor/react-laravel/react-dom.js`.
-* `dom-server-source`: defaults to `public/vendor/react-laravel/react-dom-server.js`.
-* `components`: defaults to `public/js/components.js`
-
 Your `components.js` file should also be included at your view, and all your components must be at the `window` object.
 
 # Thanks
 
-This package is inspired at [react-rails](https://github.com/reactjs/react-rails).
+This package is inspired at [react-laravel](https://github.com/talyssonoc/react-laravel).
