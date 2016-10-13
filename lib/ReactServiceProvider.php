@@ -16,8 +16,8 @@ class ReactServiceProvider extends ServiceProvider {
     $prev = __DIR__ . '/../';
 
     $this->publishes([
-      $prev . 'assets'            => $this->app->basePath('public/vendor/react-lumen'),
-      $prev . 'config/config.php' => $this->app->basePath('config/react.php'),
+      $prev . 'assets'            => base_path('public/vendor/react-lumen'),
+      $prev . 'config/config.php' => base_path('config/react.php'),
     ], 'config');
   }
 
