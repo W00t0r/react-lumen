@@ -32,7 +32,14 @@ After that you should add this to your providers at the `config/app.php` file of
   'React\ReactServiceProvider'
 ```
 
-And then run:
+Add command of publication in ``app/Console/Kernel.php`` 
+```php
+  protected $commands = [
+      \Laravelista\LumenVendorPublish\VendorPublishCommand::class
+  ];
+```
+
+You are now able to run the command in the lumen by ``laravellista/lumen-vendor-publish``
 
 ```sh
   php artisan vendor:publish
