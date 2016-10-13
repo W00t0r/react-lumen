@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/ktquez/react-lumen/badges/gpa.svg)](https://codeclimate.com/github/ktquez/react-lumen) [![Build Status](https://travis-ci.org/ktquez/react-lumen.svg?branch=master)](https://travis-ci.org/ktquez/react-lumen)
+[![Code Climate](https://codeclimate.com/github/ktquez/react-lumen/badges/gpa.svg)](https://codeclimate.com/github/ktquez/react-lumen) [![Build Status](https://travis-ci.org/ktquez/react-lumen.svg?branch=master)](https://travis-ci.org/ktquez/react-lumen) [![Total Downloads](https://poser.pugx.org/ktquez/react-lumen/downloads)](https://packagist.org/packages/ktquez/react-lumen)
 
 # react-Lumen
 
